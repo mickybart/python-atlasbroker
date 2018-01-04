@@ -1,0 +1,9 @@
+__pycache__/
+*.py[cod]
+*$py.class
+build/
+*.kate-swp
+dist
+*.egg-info
+.eggs
+secret.json
