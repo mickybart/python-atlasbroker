@@ -8,7 +8,7 @@ Atlas Broker for Kubernetes Service Catalog
 Docker
 ------
 
-Dockerfile and run.py permit to create an image that will serve Service Catalog requests in Kubernetes.
+The docker folder provides everything to create an image that will serve Service Catalog requests in Kubernetes.
 
 Atlasbroker module
 ------------------
