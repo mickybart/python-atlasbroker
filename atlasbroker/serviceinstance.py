@@ -1,17 +1,20 @@
-"""
-Copyright (c) 2018 Yellow Pages Inc.
+# Copyright (c) 2018 Yellow Pages Inc.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#     http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+"""serviceinstance module
 
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+Used to manage instance requests
 """
 
 from openbrokerapi.errors import ErrInstanceAlreadyExists
@@ -19,15 +22,14 @@ from openbrokerapi.service_broker import ProvisionedServiceSpec, ProvisionState,
 from .errors import ErrClusterNotFound
     
 class AtlasServiceInstance():
-    """ Service Catalog : Atlas Service Instance """
+    """Service Catalog : Atlas Service Instance
     
+    Constructor
+    
+    Args:
+        backend (AtlasBrokerBackend): Atlas Broker Backend
+    """
     def __init__(self, backend):
-        """ Constructor
-        
-        Args:
-            backend (AtlasBrokerBackend): Atlas Broker Backend
-        
-        """
         self.backend = backend
     
     def find(self, instance_id):
@@ -36,11 +38,10 @@ class AtlasServiceInstance():
         Create a new instance and populate it with data stored if it exists.
         
         Args:
-            instance_id (string): UUID of the instance
-            
-        Returns:
-            AtlasServiceInstance
+            instance_id (str): UUID of the instance
         
+        Returns:
+            AtlasServiceInstance.Instance: An instance
         """
         instance = AtlasServiceInstance.Instance(instance_id)
         self.backend.storage.populate(instance)
@@ -50,17 +51,16 @@ class AtlasServiceInstance():
         """ Create the instance
         
         Args:
-            instance (AtlasServiceInstance): Existing or New instance
+            instance (AtlasServiceInstance.Instance): Existing or New instance
             parameters (dict): Parameters for the instance
             existing (bool): Create an instance on an existing Atlas cluster
         
         Returns:
-            ProvisionedServiceSpec.
+            ProvisionedServiceSpec: Status
             
         Raises:
             ErrInstanceAlreadyExists: If instance exists but with different parameters
             ErrClusterNotFound: Cluster does not exist
-        
         """
         
         # Review parameters to add the database name if needed.
@@ -100,11 +100,13 @@ class AtlasServiceInstance():
             raise ErrInstanceAlreadyExists()
     
     def delete(self, instance):
-        """ Delete the instance
+        """Delete the instance
         
         Args:
-            instance (AtlasServiceInstance): an existing instance
+            instance (AtlasServiceInstance.Instance): an existing instance
             
+        Returns:
+            DeprovisionServiceSpec: Status
         """
         
         self.backend.storage.remove(instance)
@@ -115,30 +117,26 @@ class AtlasServiceInstance():
         return DeprovisionServiceSpec(False, "done")
     
     class Instance:
-        """ Instance """
+        """Instance
         
+        Constructor
+        
+        Args:
+            instance_id (str): UUID of the instance
+        
+        Keyword Arguments:
+            parameters (dict): Parameters for the instance
+        """
         def __init__(self, instance_id, parameters=None):
-            """ Constructor
-            
-            Args:
-                instance_id (string): UUID of the instance
-            
-            Kwargs:
-                parameters (dict): Parameters for the instance
-            
-            """
             self.instance_id = instance_id
             self.parameters = parameters
             self.provisioned = True
         
         def isProvisioned(self):
-            """ is already stored on the storage
+            """was it populated from the storage ?
             
             Returns:
-            
-                True -- We populate the content of the instance with stored information 
-                False -- The instance is new
-                
+                bool: True (populate from stored information), False (This is a new instance)
             """
             return self.provisioned
             
@@ -146,8 +144,18 @@ class AtlasServiceInstance():
             return type(other) is AtlasServiceInstance.Instance and self.instance_id == other.instance_id and self.parameters == other.parameters
         
         def get_dbname(self):
+            """Get the database name
+            
+            Returns:
+                str: The database name
+            """
             return self.parameters[self.backend.config.PARAMETER_DATABASE]
         
         def get_cluster(self):
+            """Get the Atlas cluster
+            
+            Returns:
+                str: The Atlas cluster name
+            """
             return self.parameters[self.backend.config.PARAMETER_CLUSTER]
         

@@ -1,18 +1,18 @@
-"""
-Copyright (c) 2018 Yellow Pages Inc.
+# Copyright (c) 2018 Yellow Pages Inc.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#     http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-"""
+"""Storage module"""
 
 import pymongo
 from .servicebinding import AtlasServiceBinding
@@ -29,23 +29,24 @@ from .errors import (
 class AtlasBrokerStorage:
     """ Storage
     
-    Permit to store ServiceInstance, ServiceBinding into a MongoDB.
+    Permit to store ServiceInstance and ServiceBinding into a MongoDB.
+    
     This is used for caching and to trace what is done by the broker.
-    This is internally used to don't create same instances/bindings and to return appropriate code like 200 Exists
+    This is internally used to don't create same instances/bindings and to return appropriate code like AlreadyExists
+    That reducing the number of call to Atlas APIs too.
     
+    Constructor
+    
+    Args:
+        uri (str): MongoDB connection string
+        timeoutms (int): MongoDB requests timeout in ms
+        db (str): The DB name
+        collection (str): The collection name
+        
+    Raises:
+        ErrStorageMongoConnection: Error during MongoDB communication.
     """
-    
     def __init__(self, uri, timeoutms, db, collection):
-        """ Constructor
-        
-        Args:
-            uri (str): MongoDB connection string
-            timeoutms (int): MongoDB requests timeout in ms
-            db (str): The DB name
-            collection (str): The collection name
-        
-        """
-        
         self.mongo_client = None
         
         # Connect to Mongo
@@ -76,7 +77,10 @@ class AtlasBrokerStorage:
         
         Args:
             obj (AtlasServiceBinding.Binding or AtlasServiceInstance.Instance): instance or binding
-            
+        
+        Raises:
+            ErrStorageTypeUnsupported: Type unsupported.
+            ErrStorageMongoConnection: Error during MongoDB communication.
         """
         
         # query
@@ -105,11 +109,18 @@ class AtlasBrokerStorage:
     def store(self, obj):
         """ Store 
         
-        Store an object into the MongoDB storage for caching and tracability
+        Store an object into the MongoDB storage for caching
         
         Args:
             obj (AtlasServiceBinding.Binding or AtlasServiceInstance.Instance): instance or binding
+            
+        Returns:
+            ObjectId: MongoDB _id
         
+        Raises:
+            ErrStorageMongoConnection: Error during MongoDB communication.
+            ErrStorageTypeUnsupported: Type unsupported.
+            ErrStorageStore : Failed to store the binding or instance.
         """
         
         # insert
@@ -159,13 +170,14 @@ class AtlasBrokerStorage:
     def remove(self, obj):
         """ Remove 
         
-        Remove an object from the MongoDB storage for caching and tracability
+        Remove an object from the MongoDB storage for caching
         
         Args:
             obj (AtlasServiceBinding.Binding or AtlasServiceInstance.Instance): instance or binding
-        
+            
+        Raises:
+            ErrStorageTypeUnsupported: Type unsupported.
         """
-        
         if type(obj) is AtlasServiceInstance.Instance:
             self.remove_instance(obj)
         elif type(obj) is AtlasServiceBinding.Binding:
@@ -176,11 +188,15 @@ class AtlasBrokerStorage:
     def remove_instance(self, instance):
         """ Remove an instance
         
-        Remove an object from the MongoDB storage for caching and tracability
+        Remove an object from the MongoDB storage for caching
         
         Args:
             instance (AtlasServiceInstance.Instance): instance
         
+        Raises:
+            ErrStorageMongoConnection: Error during MongoDB communication.
+            ErrStorageFindInstance: Not able to find the instance on the DB !
+            ErrStorageRemoveInstance: Failed to remove the instance.
         """
         
         # find _id
@@ -211,11 +227,14 @@ class AtlasBrokerStorage:
     def remove_binding(self, binding):
         """ Remove a binding
         
-        Remove an object from the MongoDB storage for caching and tracability
+        Remove an object from the MongoDB storage for caching
         
         Args:
             binding (AtlasServiceBinding.Binding): binding
-        
+            
+        Raises:
+            ErrStorageMongoConnection: Error during MongoDB communication.
+            ErrStorageRemoveBinding: Failed to remove the binding
         """
         
         # query

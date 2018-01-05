@@ -1,17 +1,20 @@
-"""
-Copyright (c) 2018 Yellow Pages Inc.
+# Copyright (c) 2018 Yellow Pages Inc.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#     http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+"""service module
 
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+Core of the Atlas broker
 """
 
 from openbrokerapi.service_broker import *
@@ -22,19 +25,16 @@ from .backend import AtlasBrokerBackend
 from .errors import ErrPlanUnsupported
 
 class AtlasBroker(Service):
-    """ Atlas Broker
+    """Atlas Broker
     
-    Implement a service broker by overriding methods of ServiceBroker
+    Implement a service broker by overriding methods of Service
     
+    Constructor
+    
+    Args:
+        config (config): Configuration of the broker
     """
-    
     def __init__(self, config):
-        """ Constructor
-        
-        Args:
-            config (config): Configuration of the broker
-            
-        """
         super().__init__(
             id=config.broker["id"],
             name=config.broker["name"],
@@ -52,21 +52,33 @@ class AtlasBroker(Service):
         self.backend = AtlasBrokerBackend(config)
     
     def __iter__(self):
+        """Iterable
+        
+        This is used by openbrokerapi catalag
+        
+        Yields:
+            str, str: key, value
+        """
         for key, value in self.__dict__.items():
             if key == 'backend':
-                # we need to hide the self.backend that is not standard for a Service
-                # because the new openbrokerapi use __iter__ or __dict__ to define the catalog.
+                # we need to hide the self.backend that is not standard for a Service,
+                # due to the new openbrokerapi 1.0.0.
                 continue
             yield (key, value)
 
     def provision(self, instance_id: str, service_details: ProvisionDetails, async_allowed: bool) -> ProvisionedServiceSpec:
-        """ Provision the new instance """
+        """Provision the new instance
+        
+        see openbrokerapi documentation
+        
+        Returns:
+            ProvisionedServiceSpec
+        """
         
         if service_details.plan_id == self.backend.config.UUID_PLANS_EXISTING_CLUSTER:
-            # Plan:
-            #  Atlas/MongoDB: Configure an existing cluster
+            # Provision the instance on an Existing Atlas Cluster
             
-            # Find or create the instance representation
+            # Find or create the instance
             instance = self.backend.find(instance_id)
             
             # Create the instance if needed
@@ -76,39 +88,61 @@ class AtlasBroker(Service):
         raise ErrPlanUnsupported(service_details.plan_id)
 
     def unbind(self, instance_id: str, binding_id: str, details: UnbindDetails):
-        """ Unbinding the instance """
+        """Unbinding the instance
         
-        # Find the instance representation
+        see openbrokerapi documentation
+        
+        Raises:
+            ErrBindingDoesNotExist: Binding does not exist.
+        """
+        
+        # Find the instance
         instance = self.backend.find(instance_id)
         
-        # Find the binding representation
+        # Find the binding
         binding = self.backend.find(binding_id, instance)
         if not binding.isProvisioned():
-            # the binding does not exist
+            # The binding does not exist
             raise ErrBindingDoesNotExist()
         
         # Delete the binding
-        return self.backend.unbind(binding)
+        self.backend.unbind(binding)
 
     def update(self, instance_id: str, details: UpdateDetails, async_allowed: bool) -> UpdateServiceSpec:
+        """Update
+        
+        Not implemented. Not used by Kubernetes Service Catalog.
+        
+        Raises:
+            NotImplementedError
+        """
         raise NotImplementedError()
 
     def bind(self, instance_id: str, binding_id: str, details: BindDetails) -> Binding:
-        """ Binding the instance """
+        """Binding the instance
         
-        # Find the instance representation
+        see openbrokerapi documentation
+        """
+        
+        # Find the instance
         instance = self.backend.find(instance_id)
         
-        # Find or create the binding representation
+        # Find or create the binding
         binding = self.backend.find(binding_id, instance)
         
         # Create the binding if needed
         return self.backend.bind(binding, details.parameters)
 
     def deprovision(self, instance_id: str, details: DeprovisionDetails, async_allowed: bool) -> DeprovisionServiceSpec:
-        """ Deprovision an instance """
+        """Deprovision an instance
         
-        # Find the instance representation
+        see openbrokerapi documentation
+        
+        Raises:
+            ErrInstanceDoesNotExist: Instance does not exist.
+        """
+        
+        # Find the instance
         instance = self.backend.find(instance_id)
         if not instance.isProvisioned():
             # the instance does not exist
@@ -117,5 +151,12 @@ class AtlasBroker(Service):
         return self.backend.delete(instance)
 
     def last_operation(self, instance_id: str, operation_data: str) -> LastOperation:
+        """Last Operation
+        
+        Not implemented. We are not using asynchronous operation on Atlas Broker.
+        
+        Raises:
+            NotImplementedError
+        """
         raise NotImplementedError()
 

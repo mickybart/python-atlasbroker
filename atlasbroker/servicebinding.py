@@ -1,17 +1,20 @@
-"""
-Copyright (c) 2018 Yellow Pages Inc.
+# Copyright (c) 2018 Yellow Pages Inc.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#     http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+"""servicebinding module
 
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+Used to manage binding requests
 """
 
 from openbrokerapi.errors import ErrBindingAlreadyExists
@@ -20,29 +23,27 @@ from atlasapi.specs import DatabaseUsersPermissionsSpecs
 from atlasapi.errors import ErrAtlasNotFound, ErrAtlasConflict
 
 class AtlasServiceBinding():
-    """ Service Catalog : Atlas Service Binding """
+    """Service Catalog : Atlas Service Binding
     
+    Constructor
+    
+    Args:
+        backend (AtlasBrokerBackend): Atlas Broker Backend
+    """
     def __init__(self, backend):
-        """ Constructor
-        
-        Args:
-            backend (AtlasBrokerBackend): Atlas Broker Backend
-        
-        """
         self.backend = backend
     
     def find(self, binding_id, instance):
-        """ find an instance
+        """find an instance
         
         Create a new instance and populate it with data stored if it exists.
         
         Args:
             binding_id (string): UUID of the binding
-            instance (AtlasServiceInstance): instance
+            instance (AtlasServiceInstance.Instance): instance
             
         Returns:
-            AtlasServiceBinding
-        
+            AtlasServiceBinding: A binding
         """
         binding = AtlasServiceBinding.Binding(binding_id, instance)
         self.backend.storage.populate(binding)
@@ -52,15 +53,14 @@ class AtlasServiceBinding():
         """ Create the binding
         
         Args:
-            binding (AtlasServiceBinding): Existing or New binding
+            binding (AtlasServiceBinding.Binding): Existing or New binding
             parameters (dict): Parameters for the binding
             
         Returns:
-            Binding.
+            Binding: Status
             
         Raises:
             ErrBindingAlreadyExists: If binding exists but with different parameters
-        
         """
         
         if not binding.isProvisioned():
@@ -101,8 +101,7 @@ class AtlasServiceBinding():
         """ Unbind the instance
         
         Args:
-            binding (AtlasServiceBinding): Existing or New binding
-            
+            binding (AtlasServiceBinding.Binding): Existing or New binding
         """
         
         username = self.backend.config.generate_binding_username(binding)
@@ -118,29 +117,24 @@ class AtlasServiceBinding():
         self.backend.storage.remove(binding)
     
     class Binding:
-        """ Binding """
+        """Binding
         
+        Constructor
+        
+        Args:
+            binding_id (str): UUID of the binding
+            instance (AtlasServiceInstance.Instance): An instance
+        """
         def __init__(self, binding_id, instance):
-            """ Constructor
-            
-            Args:
-                binding_id (string): UUID of the binding
-                instance (AtlasServiceInstance): instance
-            
-            """
-            
             self.binding_id = binding_id
             self.instance = instance
             self.provisioned = True
         
         def isProvisioned(self):
-            """ is already stored on the storage
+            """was it populated from the storage ?
             
             Returns:
-            
-                True -- We populate the content of the binding with stored information 
-                False -- The binding is new
-                
+                bool: True (populate from stored information), False (This is a new instance)
             """
             return self.provisioned
             
