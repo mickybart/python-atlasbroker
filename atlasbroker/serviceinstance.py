@@ -43,7 +43,7 @@ class AtlasServiceInstance():
         Returns:
             AtlasServiceInstance.Instance: An instance
         """
-        instance = AtlasServiceInstance.Instance(instance_id)
+        instance = AtlasServiceInstance.Instance(instance_id, self.backend)
         self.backend.storage.populate(instance)
         return instance
     
@@ -123,12 +123,14 @@ class AtlasServiceInstance():
         
         Args:
             instance_id (str): UUID of the instance
+            backend (AtlasBrokerBackend): Atlas Broker Backend
         
         Keyword Arguments:
             parameters (dict): Parameters for the instance
         """
-        def __init__(self, instance_id, parameters=None):
+        def __init__(self, instance_id, backend, parameters=None):
             self.instance_id = instance_id
+            self.backend = backend
             self.parameters = parameters
             self.provisioned = True
         
