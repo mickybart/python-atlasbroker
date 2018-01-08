@@ -1,0 +1,1135 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>atlasbroker package &#8212; atlasbroker 1.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="atlasbroker.apis package" href="atlasbroker.apis.html" />
+    <link rel="prev" title="Welcome to atlasbroker’s documentation!" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="atlasbroker.apis.html" title="atlasbroker.apis package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to atlasbroker’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">atlasbroker 1.0.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="atlasbroker-package">
+<h1>atlasbroker package<a class="headerlink" href="#atlasbroker-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="atlasbroker.apis.html">atlasbroker.apis package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="atlasbroker.apis.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atlasbroker.apis.html#module-atlasbroker.apis.broker">atlasbroker.apis.broker module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atlasbroker.apis.html#module-atlasbroker.apis.health">atlasbroker.apis.health module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atlasbroker.apis.html#module-atlasbroker.apis">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-atlasbroker.backend">
+<span id="atlasbroker-backend-module"></span><h2>atlasbroker.backend module<a class="headerlink" href="#module-atlasbroker.backend" title="Permalink to this headline">¶</a></h2>
+<p>Backend module</p>
+<p>Used by the broker and all sub-modules to
+- expose few common services (Storage, Config, Atlas, …)
+- dispatch some calls</p>
+<dl class="class">
+<dt id="atlasbroker.backend.AtlasBrokerBackend">
+<em class="property">class </em><code class="descclassname">atlasbroker.backend.</code><code class="descname">AtlasBrokerBackend</code><span class="sig-paren">(</span><em>config</em><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.backend.AtlasBrokerBackend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Backend for the Atlas Broker</p>
+<p>Expose all services to serve Broker requests</p>
+<p>Constructor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>config</strong> (<a class="reference internal" href="#atlasbroker.config.Config" title="atlasbroker.config.Config"><em>Config</em></a>) – Configuration of the Atlas Broker</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="atlasbroker.backend.AtlasBrokerBackend.bind">
+<code class="descname">bind</code><span class="sig-paren">(</span><em>binding</em>, <em>parameters</em><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.backend.AtlasBrokerBackend.bind" title="Permalink to this definition">¶</a></dt>
+<dd><p>Binding to an instance</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>binding</strong> (<a class="reference internal" href="#atlasbroker.servicebinding.AtlasServiceBinding.Binding" title="atlasbroker.servicebinding.AtlasServiceBinding.Binding"><em>AtlasServiceBinding.Binding</em></a>) – Existing or New binding</li>
+<li><strong>parameters</strong> (<em>dict</em>) – Parameters for the binding</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Status</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#atlasbroker.servicebinding.AtlasServiceBinding.Binding" title="atlasbroker.servicebinding.AtlasServiceBinding.Binding">Binding</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="atlasbroker.backend.AtlasBrokerBackend.create">
+<code class="descname">create</code><span class="sig-paren">(</span><em>instance</em>, <em>parameters</em>, <em>existing=True</em><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.backend.AtlasBrokerBackend.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an instance</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>instance</strong> (<a class="reference internal" href="#atlasbroker.serviceinstance.AtlasServiceInstance.Instance" title="atlasbroker.serviceinstance.AtlasServiceInstance.Instance"><em>AtlasServiceInstance.Instance</em></a>) – Existing or New instance</li>
+<li><strong>parameters</strong> (<em>dict</em>) – Parameters for the instance</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><p class="first"><strong>existing</strong> (<em>bool</em>) – True (use an existing cluster), False (create a new cluster)</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Status</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">ProvisionedServiceSpec</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="atlasbroker.backend.AtlasBrokerBackend.delete">
+<code class="descname">delete</code><span class="sig-paren">(</span><em>instance</em><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.backend.AtlasBrokerBackend.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete an instance</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>instance</strong> (<a class="reference internal" href="#atlasbroker.serviceinstance.AtlasServiceInstance.Instance" title="atlasbroker.serviceinstance.AtlasServiceInstance.Instance"><em>AtlasServiceInstance.Instance</em></a>) – Existing instance</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Status</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">DeprovisionServiceSpec</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="atlasbroker.backend.AtlasBrokerBackend.find">
+<code class="descname">find</code><span class="sig-paren">(</span><em>_id</em>, <em>instance=None</em><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.backend.AtlasBrokerBackend.find" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>_id</strong> (<em>str</em>) – instance id or binding Id</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><strong>instance</strong> (<a class="reference internal" href="#atlasbroker.serviceinstance.AtlasServiceInstance.Instance" title="atlasbroker.serviceinstance.AtlasServiceInstance.Instance"><em>AtlasServiceInstance.Instance</em></a>) – Existing instance</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">An instance or binding.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#atlasbroker.serviceinstance.AtlasServiceInstance.Instance" title="atlasbroker.serviceinstance.AtlasServiceInstance.Instance">AtlasServiceInstance.Instance</a> or <a class="reference internal" href="#atlasbroker.servicebinding.AtlasServiceBinding.Binding" title="atlasbroker.servicebinding.AtlasServiceBinding.Binding">AtlasServiceBinding.Binding</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="atlasbroker.backend.AtlasBrokerBackend.unbind">
+<code class="descname">unbind</code><span class="sig-paren">(</span><em>binding</em><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.backend.AtlasBrokerBackend.unbind" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unbinding an instance</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>binding</strong> (<a class="reference internal" href="#atlasbroker.servicebinding.AtlasServiceBinding.Binding" title="atlasbroker.servicebinding.AtlasServiceBinding.Binding"><em>AtlasServiceBinding.Binding</em></a>) – Existing binding</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-atlasbroker.broker">
+<span id="atlasbroker-broker-module"></span><h2>atlasbroker.broker module<a class="headerlink" href="#module-atlasbroker.broker" title="Permalink to this headline">¶</a></h2>
+<p>broker module</p>
+<dl class="class">
+<dt id="atlasbroker.broker.Broker">
+<em class="property">class </em><code class="descclassname">atlasbroker.broker.</code><code class="descname">Broker</code><span class="sig-paren">(</span><em>config</em><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.broker.Broker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Service composition with blueprint provided from apis.
+The broker is based on Flask</p>
+<p>Constructor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>config</strong> (<a class="reference internal" href="#atlasbroker.config.Config" title="atlasbroker.config.Config"><em>Config</em></a>) – The broker configuration</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="atlasbroker.broker.Broker.run">
+<code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.broker.Broker.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start the broker server</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-atlasbroker.config">
+<span id="atlasbroker-config-module"></span><h2>atlasbroker.config module<a class="headerlink" href="#module-atlasbroker.config" title="Permalink to this headline">¶</a></h2>
+<p>config module</p>
+<p>Permit to manage global configurations</p>
+<dl class="class">
+<dt id="atlasbroker.config.Config">
+<em class="property">class </em><code class="descclassname">atlasbroker.config.</code><code class="descname">Config</code><span class="sig-paren">(</span><em>atlas_credentials</em>, <em>mongo_credentials</em>, <em>clusters=None</em><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.config.Config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Configuration for AtlasBroker and sub-modules</p>
+<p>This class can be overriden and so adapted by every compagnies to
+set different policy about naming convention, password generation etc.</p>
+<dl class="docutils">
+<dt>You should check those main functions used by the broker:</dt>
+<dd>generate_instance_dbname
+generate_binding_credentials
+generate_binding_username
+generate_binding_permissions</dd>
+</dl>
+<p>Constructor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>atlas_credentials</strong> (<em>dict</em>) – Atlas credentials eg: {“userame” : “”, “password”: “”, “group”: “”}</li>
+<li><strong>mongo_credentials</strong> (<em>dict</em>) – Mongo credentials eg: {“uri”: “”, “db”: “”, “timeoutms”: 5000, “collection”: “”}</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><p class="first last"><strong>clusters</strong> (<em>list</em>) – List of cluster with uri associated. If not provided, it will be populate from Atlas.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="atlasbroker.config.Config.PARAMETER_CLUSTER">
+<code class="descname">PARAMETER_CLUSTER</code><em class="property"> = 'cluster'</em><a class="headerlink" href="#atlasbroker.config.Config.PARAMETER_CLUSTER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="atlasbroker.config.Config.PARAMETER_DATABASE">
+<code class="descname">PARAMETER_DATABASE</code><em class="property"> = 'database'</em><a class="headerlink" href="#atlasbroker.config.Config.PARAMETER_DATABASE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="atlasbroker.config.Config.PARAMETER_NAMESPACE">
+<code class="descname">PARAMETER_NAMESPACE</code><em class="property"> = 'ns'</em><a class="headerlink" href="#atlasbroker.config.Config.PARAMETER_NAMESPACE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="atlasbroker.config.Config.UUID_PLANS_EXISTING_CLUSTER">
+<code class="descname">UUID_PLANS_EXISTING_CLUSTER</code><em class="property"> = '8db474d1-3cc0-4f4d-b864-24e3bd49b874'</em><a class="headerlink" href="#atlasbroker.config.Config.UUID_PLANS_EXISTING_CLUSTER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="atlasbroker.config.Config.UUID_SERVICES_CLUSTER">
+<code class="descname">UUID_SERVICES_CLUSTER</code><em class="property"> = '2a04f349-4aab-4fcb-af6d-8e1749a77c13'</em><a class="headerlink" href="#atlasbroker.config.Config.UUID_SERVICES_CLUSTER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="atlasbroker.config.Config.generate_binding_credentials">
+<code class="descname">generate_binding_credentials</code><span class="sig-paren">(</span><em>binding</em><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.config.Config.generate_binding_credentials" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate binding credentials</p>
+<p>This function will permit to define the configuration to
+connect to the instance.
+Those credentials will be stored on a secret and exposed to a a Pod.</p>
+<p>We should at least returns the ‘username’ and ‘password’.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>binding</strong> (<a class="reference internal" href="#atlasbroker.servicebinding.AtlasServiceBinding.Binding" title="atlasbroker.servicebinding.AtlasServiceBinding.Binding"><em>AtlasServiceBinding.Binding</em></a>) – A binding</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">All credentials and secrets.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ErrClusterConfig</span></code> – Connection string to the cluster is not available.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="atlasbroker.config.Config.generate_binding_permissions">
+<code class="descname">generate_binding_permissions</code><span class="sig-paren">(</span><em>binding</em>, <em>permissions</em><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.config.Config.generate_binding_permissions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate Users pemissions on the database</p>
+<p>Defining roles to the database for the users.
+We can pass extra information into parameters of the binding if needed (see binding.parameters).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>binding</strong> (<a class="reference internal" href="#atlasbroker.servicebinding.AtlasServiceBinding.Binding" title="atlasbroker.servicebinding.AtlasServiceBinding.Binding"><em>AtlasServiceBinding.Binding</em></a>) – A binding</li>
+<li><strong>permissions</strong> (<em>atlasapi.specs.DatabaseUsersPermissionsSpecs</em>) – Permissions for Atlas</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Permissions for the new user</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">atlasapi.specs.DatabaseUsersPermissionsSpecs</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="atlasbroker.config.Config.generate_binding_username">
+<code class="descname">generate_binding_username</code><span class="sig-paren">(</span><em>binding</em><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.config.Config.generate_binding_username" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate binding username</p>
+<p>We don’t need anything static here. The UUID is a good way to create a username.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>binding</strong> (<a class="reference internal" href="#atlasbroker.servicebinding.AtlasServiceBinding.Binding" title="atlasbroker.servicebinding.AtlasServiceBinding.Binding"><em>AtlasServiceBinding.Binding</em></a>) – A binding</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The username to the database</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="atlasbroker.config.Config.generate_instance_dbname">
+<code class="descname">generate_instance_dbname</code><span class="sig-paren">(</span><em>parameters</em><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.config.Config.generate_instance_dbname" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a Database name</p>
+<p>There is a lot of discussion about static name vs UUID.
+Atlas Broker will handle instance UUID but it will need to use a static name
+and will NOT expose the instance UUID in this function.</p>
+<p>The reason is that the name should be defined with parameters only to permit some projects
+in different k8s namespaces to bind to the same database instance.
+It is not possible for now to bind to an instance defined on another namespace and
+we need a way to use the same database despite different instances UUID.</p>
+<p>So Atlas Broker will be able to manage multiple instance UUID set to a unique database with a static name.</p>
+<p>The generated database name will be set on the parameters[PARAMETER_DATABASE] by the broker. This is the internal
+static name for the broker.</p>
+<p>NOTE: if the parameters[PARAMETER_DATABASE] already exists, this function will never be called by the broker.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>parameters</strong> (<em>dict</em>) – Parameters of the k8s Service Instance yaml definition.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The database name</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="atlasbroker.config.Config.load_json">
+<code class="descname">load_json</code><span class="sig-paren">(</span><em>json_file</em><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.config.Config.load_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load JSON file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>json_file</strong> (<em>str</em>) – filename of a json file</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">content of the file</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-atlasbroker.errors">
+<span id="atlasbroker-errors-module"></span><h2>atlasbroker.errors module<a class="headerlink" href="#module-atlasbroker.errors" title="Permalink to this headline">¶</a></h2>
+<p>errors module</p>
+<p>All Specific Exceptions</p>
+<dl class="exception">
+<dt id="atlasbroker.errors.ErrClusterConfig">
+<em class="property">exception </em><code class="descclassname">atlasbroker.errors.</code><code class="descname">ErrClusterConfig</code><span class="sig-paren">(</span><em>cluster</em><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.errors.ErrClusterConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
+<p>Cluster configuration not found</p>
+<p>We need the configuration during the binding to set the connection string</p>
+<p>Constructor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>cluster</strong> (<em>str</em>) – Atlas cluster name</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="exception">
+<dt id="atlasbroker.errors.ErrClusterNotFound">
+<em class="property">exception </em><code class="descclassname">atlasbroker.errors.</code><code class="descname">ErrClusterNotFound</code><span class="sig-paren">(</span><em>cluster</em><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.errors.ErrClusterNotFound" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
+<p>Cluster not found</p>
+<p>Constructor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>cluster</strong> (<em>str</em>) – Atlas cluster name</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="exception">
+<dt id="atlasbroker.errors.ErrPlanUnsupported">
+<em class="property">exception </em><code class="descclassname">atlasbroker.errors.</code><code class="descname">ErrPlanUnsupported</code><span class="sig-paren">(</span><em>plan_id</em><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.errors.ErrPlanUnsupported" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
+<p>Plan not supported</p>
+<p>Constructor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>plan_id</strong> (<em>str</em>) – UUID of the plan</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="exception">
+<dt id="atlasbroker.errors.ErrStorageFindInstance">
+<em class="property">exception </em><code class="descclassname">atlasbroker.errors.</code><code class="descname">ErrStorageFindInstance</code><span class="sig-paren">(</span><em>instance_id</em><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.errors.ErrStorageFindInstance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
+<p>Failed to find the instance</p>
+<p>Constructor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>instance_id</strong> (<em>str</em>) – UUID of the instance</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="exception">
+<dt id="atlasbroker.errors.ErrStorageMongoConnection">
+<em class="property">exception </em><code class="descclassname">atlasbroker.errors.</code><code class="descname">ErrStorageMongoConnection</code><span class="sig-paren">(</span><em>during</em><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.errors.ErrStorageMongoConnection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
+<p>The storage is not able to communicate with MongoDB</p>
+<p>Constructor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>during</strong> (<em>str</em>) – When the issue occurs</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="exception">
+<dt id="atlasbroker.errors.ErrStorageRemoveBinding">
+<em class="property">exception </em><code class="descclassname">atlasbroker.errors.</code><code class="descname">ErrStorageRemoveBinding</code><span class="sig-paren">(</span><em>binding_id</em><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.errors.ErrStorageRemoveBinding" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
+<p>Failed to remove the binding</p>
+<p>Constructor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>binding_id</strong> (<em>str</em>) – UUID of the binding</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="exception">
+<dt id="atlasbroker.errors.ErrStorageRemoveInstance">
+<em class="property">exception </em><code class="descclassname">atlasbroker.errors.</code><code class="descname">ErrStorageRemoveInstance</code><span class="sig-paren">(</span><em>instance_id</em><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.errors.ErrStorageRemoveInstance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
+<p>Failed to remove the instance</p>
+<p>Constructor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>instance_id</strong> (<em>str</em>) – UUID of the instance</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="exception">
+<dt id="atlasbroker.errors.ErrStorageStore">
+<em class="property">exception </em><code class="descclassname">atlasbroker.errors.</code><code class="descname">ErrStorageStore</code><a class="headerlink" href="#atlasbroker.errors.ErrStorageStore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
+<p>Failed to store the instance or binding</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="atlasbroker.errors.ErrStorageTypeUnsupported">
+<em class="property">exception </em><code class="descclassname">atlasbroker.errors.</code><code class="descname">ErrStorageTypeUnsupported</code><span class="sig-paren">(</span><em>type_obj</em><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.errors.ErrStorageTypeUnsupported" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
+<p>Type unsupported</p>
+<p>Constructor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>type_obj</strong> (<em>type</em>) – Type of the object not supported (type(obj))</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-atlasbroker.service">
+<span id="atlasbroker-service-module"></span><h2>atlasbroker.service module<a class="headerlink" href="#module-atlasbroker.service" title="Permalink to this headline">¶</a></h2>
+<p>service module</p>
+<p>Core of the Atlas broker</p>
+<dl class="class">
+<dt id="atlasbroker.service.AtlasBroker">
+<em class="property">class </em><code class="descclassname">atlasbroker.service.</code><code class="descname">AtlasBroker</code><span class="sig-paren">(</span><em>config</em><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.service.AtlasBroker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">openbrokerapi.service_broker.Service</span></code></p>
+<p>Atlas Broker</p>
+<p>Implement a service broker by overriding methods of Service</p>
+<p>Constructor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>config</strong> (<a class="reference internal" href="#module-atlasbroker.config" title="atlasbroker.config"><em>config</em></a>) – Configuration of the broker</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="atlasbroker.service.AtlasBroker.bind">
+<code class="descname">bind</code><span class="sig-paren">(</span><em>instance_id: str</em>, <em>binding_id: str</em>, <em>details: openbrokerapi.service_broker.BindDetails</em><span class="sig-paren">)</span> &#x2192; openbrokerapi.service_broker.Binding<a class="headerlink" href="#atlasbroker.service.AtlasBroker.bind" title="Permalink to this definition">¶</a></dt>
+<dd><p>Binding the instance</p>
+<p>see openbrokerapi documentation</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="atlasbroker.service.AtlasBroker.deprovision">
+<code class="descname">deprovision</code><span class="sig-paren">(</span><em>instance_id: str</em>, <em>details: openbrokerapi.service_broker.DeprovisionDetails</em>, <em>async_allowed: bool</em><span class="sig-paren">)</span> &#x2192; openbrokerapi.service_broker.DeprovisionServiceSpec<a class="headerlink" href="#atlasbroker.service.AtlasBroker.deprovision" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deprovision an instance</p>
+<p>see openbrokerapi documentation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ErrInstanceDoesNotExist</span></code> – Instance does not exist.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="atlasbroker.service.AtlasBroker.last_operation">
+<code class="descname">last_operation</code><span class="sig-paren">(</span><em>instance_id: str</em>, <em>operation_data: str</em><span class="sig-paren">)</span> &#x2192; openbrokerapi.service_broker.LastOperation<a class="headerlink" href="#atlasbroker.service.AtlasBroker.last_operation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Last Operation</p>
+<p>Not implemented. We are not using asynchronous operation on Atlas Broker.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">NotImplementedError</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="atlasbroker.service.AtlasBroker.provision">
+<code class="descname">provision</code><span class="sig-paren">(</span><em>instance_id: str</em>, <em>service_details: openbrokerapi.service_broker.ProvisionDetails</em>, <em>async_allowed: bool</em><span class="sig-paren">)</span> &#x2192; openbrokerapi.service_broker.ProvisionedServiceSpec<a class="headerlink" href="#atlasbroker.service.AtlasBroker.provision" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provision the new instance</p>
+<p>see openbrokerapi documentation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">ProvisionedServiceSpec</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="atlasbroker.service.AtlasBroker.unbind">
+<code class="descname">unbind</code><span class="sig-paren">(</span><em>instance_id: str</em>, <em>binding_id: str</em>, <em>details: openbrokerapi.service_broker.UnbindDetails</em><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.service.AtlasBroker.unbind" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unbinding the instance</p>
+<p>see openbrokerapi documentation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ErrBindingDoesNotExist</span></code> – Binding does not exist.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="atlasbroker.service.AtlasBroker.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>instance_id: str</em>, <em>details: openbrokerapi.service_broker.UpdateDetails</em>, <em>async_allowed: bool</em><span class="sig-paren">)</span> &#x2192; openbrokerapi.service_broker.UpdateServiceSpec<a class="headerlink" href="#atlasbroker.service.AtlasBroker.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update</p>
+<p>Not implemented. Not used by Kubernetes Service Catalog.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">NotImplementedError</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-atlasbroker.servicebinding">
+<span id="atlasbroker-servicebinding-module"></span><h2>atlasbroker.servicebinding module<a class="headerlink" href="#module-atlasbroker.servicebinding" title="Permalink to this headline">¶</a></h2>
+<p>servicebinding module</p>
+<p>Used to manage binding requests</p>
+<dl class="class">
+<dt id="atlasbroker.servicebinding.AtlasServiceBinding">
+<em class="property">class </em><code class="descclassname">atlasbroker.servicebinding.</code><code class="descname">AtlasServiceBinding</code><span class="sig-paren">(</span><em>backend</em><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.servicebinding.AtlasServiceBinding" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Service Catalog : Atlas Service Binding</p>
+<p>Constructor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>backend</strong> (<a class="reference internal" href="#atlasbroker.backend.AtlasBrokerBackend" title="atlasbroker.backend.AtlasBrokerBackend"><em>AtlasBrokerBackend</em></a>) – Atlas Broker Backend</td>
+</tr>
+</tbody>
+</table>
+<dl class="class">
+<dt id="atlasbroker.servicebinding.AtlasServiceBinding.Binding">
+<em class="property">class </em><code class="descname">Binding</code><span class="sig-paren">(</span><em>binding_id</em>, <em>instance</em><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.servicebinding.AtlasServiceBinding.Binding" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Constructor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>binding_id</strong> (<em>str</em>) – UUID of the binding</li>
+<li><strong>instance</strong> (<a class="reference internal" href="#atlasbroker.serviceinstance.AtlasServiceInstance.Instance" title="atlasbroker.serviceinstance.AtlasServiceInstance.Instance"><em>AtlasServiceInstance.Instance</em></a>) – An instance</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="atlasbroker.servicebinding.AtlasServiceBinding.Binding.isProvisioned">
+<code class="descname">isProvisioned</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.servicebinding.AtlasServiceBinding.Binding.isProvisioned" title="Permalink to this definition">¶</a></dt>
+<dd><p>was it populated from the storage ?</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True (populate from stored information), False (This is a new instance)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="atlasbroker.servicebinding.AtlasServiceBinding.bind">
+<code class="descname">bind</code><span class="sig-paren">(</span><em>binding</em>, <em>parameters</em><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.servicebinding.AtlasServiceBinding.bind" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create the binding</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>binding</strong> (<a class="reference internal" href="#atlasbroker.servicebinding.AtlasServiceBinding.Binding" title="atlasbroker.servicebinding.AtlasServiceBinding.Binding"><em>AtlasServiceBinding.Binding</em></a>) – Existing or New binding</li>
+<li><strong>parameters</strong> (<em>dict</em>) – Parameters for the binding</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Status</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference internal" href="#atlasbroker.servicebinding.AtlasServiceBinding.Binding" title="atlasbroker.servicebinding.AtlasServiceBinding.Binding">Binding</a></p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">ErrBindingAlreadyExists</span></code> – If binding exists but with different parameters</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="atlasbroker.servicebinding.AtlasServiceBinding.find">
+<code class="descname">find</code><span class="sig-paren">(</span><em>binding_id</em>, <em>instance</em><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.servicebinding.AtlasServiceBinding.find" title="Permalink to this definition">¶</a></dt>
+<dd><p>find an instance</p>
+<p>Create a new instance and populate it with data stored if it exists.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>binding_id</strong> (<em>string</em>) – UUID of the binding</li>
+<li><strong>instance</strong> (<a class="reference internal" href="#atlasbroker.serviceinstance.AtlasServiceInstance.Instance" title="atlasbroker.serviceinstance.AtlasServiceInstance.Instance"><em>AtlasServiceInstance.Instance</em></a>) – instance</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A binding</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#atlasbroker.servicebinding.AtlasServiceBinding" title="atlasbroker.servicebinding.AtlasServiceBinding">AtlasServiceBinding</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="atlasbroker.servicebinding.AtlasServiceBinding.unbind">
+<code class="descname">unbind</code><span class="sig-paren">(</span><em>binding</em><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.servicebinding.AtlasServiceBinding.unbind" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unbind the instance</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>binding</strong> (<a class="reference internal" href="#atlasbroker.servicebinding.AtlasServiceBinding.Binding" title="atlasbroker.servicebinding.AtlasServiceBinding.Binding"><em>AtlasServiceBinding.Binding</em></a>) – Existing or New binding</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-atlasbroker.serviceinstance">
+<span id="atlasbroker-serviceinstance-module"></span><h2>atlasbroker.serviceinstance module<a class="headerlink" href="#module-atlasbroker.serviceinstance" title="Permalink to this headline">¶</a></h2>
+<p>serviceinstance module</p>
+<p>Used to manage instance requests</p>
+<dl class="class">
+<dt id="atlasbroker.serviceinstance.AtlasServiceInstance">
+<em class="property">class </em><code class="descclassname">atlasbroker.serviceinstance.</code><code class="descname">AtlasServiceInstance</code><span class="sig-paren">(</span><em>backend</em><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.serviceinstance.AtlasServiceInstance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Service Catalog : Atlas Service Instance</p>
+<p>Constructor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>backend</strong> (<a class="reference internal" href="#atlasbroker.backend.AtlasBrokerBackend" title="atlasbroker.backend.AtlasBrokerBackend"><em>AtlasBrokerBackend</em></a>) – Atlas Broker Backend</td>
+</tr>
+</tbody>
+</table>
+<dl class="class">
+<dt id="atlasbroker.serviceinstance.AtlasServiceInstance.Instance">
+<em class="property">class </em><code class="descname">Instance</code><span class="sig-paren">(</span><em>instance_id</em>, <em>backend</em>, <em>parameters=None</em><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.serviceinstance.AtlasServiceInstance.Instance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Constructor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>instance_id</strong> (<em>str</em>) – UUID of the instance</li>
+<li><strong>backend</strong> (<a class="reference internal" href="#atlasbroker.backend.AtlasBrokerBackend" title="atlasbroker.backend.AtlasBrokerBackend"><em>AtlasBrokerBackend</em></a>) – Atlas Broker Backend</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><p class="first last"><strong>parameters</strong> (<em>dict</em>) – Parameters for the instance</p>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="atlasbroker.serviceinstance.AtlasServiceInstance.Instance.get_cluster">
+<code class="descname">get_cluster</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.serviceinstance.AtlasServiceInstance.Instance.get_cluster" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the Atlas cluster</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The Atlas cluster name</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="atlasbroker.serviceinstance.AtlasServiceInstance.Instance.get_dbname">
+<code class="descname">get_dbname</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.serviceinstance.AtlasServiceInstance.Instance.get_dbname" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the database name</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The database name</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="atlasbroker.serviceinstance.AtlasServiceInstance.Instance.isProvisioned">
+<code class="descname">isProvisioned</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.serviceinstance.AtlasServiceInstance.Instance.isProvisioned" title="Permalink to this definition">¶</a></dt>
+<dd><p>was it populated from the storage ?</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True (populate from stored information), False (This is a new instance)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="atlasbroker.serviceinstance.AtlasServiceInstance.create">
+<code class="descname">create</code><span class="sig-paren">(</span><em>instance</em>, <em>parameters</em>, <em>existing</em><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.serviceinstance.AtlasServiceInstance.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create the instance</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>instance</strong> (<a class="reference internal" href="#atlasbroker.serviceinstance.AtlasServiceInstance.Instance" title="atlasbroker.serviceinstance.AtlasServiceInstance.Instance"><em>AtlasServiceInstance.Instance</em></a>) – Existing or New instance</li>
+<li><strong>parameters</strong> (<em>dict</em>) – Parameters for the instance</li>
+<li><strong>existing</strong> (<em>bool</em>) – Create an instance on an existing Atlas cluster</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Status</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">ProvisionedServiceSpec</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><code class="xref py py-exc docutils literal"><span class="pre">ErrInstanceAlreadyExists</span></code> – If instance exists but with different parameters</li>
+<li><code class="xref py py-exc docutils literal"><span class="pre">ErrClusterNotFound</span></code> – Cluster does not exist</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="atlasbroker.serviceinstance.AtlasServiceInstance.delete">
+<code class="descname">delete</code><span class="sig-paren">(</span><em>instance</em><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.serviceinstance.AtlasServiceInstance.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete the instance</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>instance</strong> (<a class="reference internal" href="#atlasbroker.serviceinstance.AtlasServiceInstance.Instance" title="atlasbroker.serviceinstance.AtlasServiceInstance.Instance"><em>AtlasServiceInstance.Instance</em></a>) – an existing instance</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Status</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">DeprovisionServiceSpec</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="atlasbroker.serviceinstance.AtlasServiceInstance.find">
+<code class="descname">find</code><span class="sig-paren">(</span><em>instance_id</em><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.serviceinstance.AtlasServiceInstance.find" title="Permalink to this definition">¶</a></dt>
+<dd><p>find an instance</p>
+<p>Create a new instance and populate it with data stored if it exists.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>instance_id</strong> (<em>str</em>) – UUID of the instance</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">An instance</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#atlasbroker.serviceinstance.AtlasServiceInstance.Instance" title="atlasbroker.serviceinstance.AtlasServiceInstance.Instance">AtlasServiceInstance.Instance</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-atlasbroker.storage">
+<span id="atlasbroker-storage-module"></span><h2>atlasbroker.storage module<a class="headerlink" href="#module-atlasbroker.storage" title="Permalink to this headline">¶</a></h2>
+<p>Storage module</p>
+<dl class="class">
+<dt id="atlasbroker.storage.AtlasBrokerStorage">
+<em class="property">class </em><code class="descclassname">atlasbroker.storage.</code><code class="descname">AtlasBrokerStorage</code><span class="sig-paren">(</span><em>uri</em>, <em>timeoutms</em>, <em>db</em>, <em>collection</em><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.storage.AtlasBrokerStorage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Storage</p>
+<p>Permit to store ServiceInstance and ServiceBinding into a MongoDB.</p>
+<p>This is used for caching and to trace what is done by the broker.
+This is internally used to don’t create same instances/bindings and to return appropriate code like AlreadyExists
+That reducing the number of call to Atlas APIs too.</p>
+<p>Constructor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>uri</strong> (<em>str</em>) – MongoDB connection string</li>
+<li><strong>timeoutms</strong> (<em>int</em>) – MongoDB requests timeout in ms</li>
+<li><strong>db</strong> (<em>str</em>) – The DB name</li>
+<li><strong>collection</strong> (<em>str</em>) – The collection name</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">ErrStorageMongoConnection</span></code> – Error during MongoDB communication.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="atlasbroker.storage.AtlasBrokerStorage.populate">
+<code class="descname">populate</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.storage.AtlasBrokerStorage.populate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Populate</p>
+<p>Query mongo to get information about the obj if it exists</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>obj</strong> (<a class="reference internal" href="#atlasbroker.servicebinding.AtlasServiceBinding.Binding" title="atlasbroker.servicebinding.AtlasServiceBinding.Binding"><em>AtlasServiceBinding.Binding</em></a><em> or </em><a class="reference internal" href="#atlasbroker.serviceinstance.AtlasServiceInstance.Instance" title="atlasbroker.serviceinstance.AtlasServiceInstance.Instance"><em>AtlasServiceInstance.Instance</em></a>) – instance or binding</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><code class="xref py py-exc docutils literal"><span class="pre">ErrStorageTypeUnsupported</span></code> – Type unsupported.</li>
+<li><code class="xref py py-exc docutils literal"><span class="pre">ErrStorageMongoConnection</span></code> – Error during MongoDB communication.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="atlasbroker.storage.AtlasBrokerStorage.remove">
+<code class="descname">remove</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.storage.AtlasBrokerStorage.remove" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove</p>
+<p>Remove an object from the MongoDB storage for caching</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>obj</strong> (<a class="reference internal" href="#atlasbroker.servicebinding.AtlasServiceBinding.Binding" title="atlasbroker.servicebinding.AtlasServiceBinding.Binding"><em>AtlasServiceBinding.Binding</em></a><em> or </em><a class="reference internal" href="#atlasbroker.serviceinstance.AtlasServiceInstance.Instance" title="atlasbroker.serviceinstance.AtlasServiceInstance.Instance"><em>AtlasServiceInstance.Instance</em></a>) – instance or binding</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ErrStorageTypeUnsupported</span></code> – Type unsupported.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="atlasbroker.storage.AtlasBrokerStorage.remove_binding">
+<code class="descname">remove_binding</code><span class="sig-paren">(</span><em>binding</em><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.storage.AtlasBrokerStorage.remove_binding" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove a binding</p>
+<p>Remove an object from the MongoDB storage for caching</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>binding</strong> (<a class="reference internal" href="#atlasbroker.servicebinding.AtlasServiceBinding.Binding" title="atlasbroker.servicebinding.AtlasServiceBinding.Binding"><em>AtlasServiceBinding.Binding</em></a>) – binding</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><code class="xref py py-exc docutils literal"><span class="pre">ErrStorageMongoConnection</span></code> – Error during MongoDB communication.</li>
+<li><code class="xref py py-exc docutils literal"><span class="pre">ErrStorageRemoveBinding</span></code> – Failed to remove the binding</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="atlasbroker.storage.AtlasBrokerStorage.remove_instance">
+<code class="descname">remove_instance</code><span class="sig-paren">(</span><em>instance</em><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.storage.AtlasBrokerStorage.remove_instance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove an instance</p>
+<p>Remove an object from the MongoDB storage for caching</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>instance</strong> (<a class="reference internal" href="#atlasbroker.serviceinstance.AtlasServiceInstance.Instance" title="atlasbroker.serviceinstance.AtlasServiceInstance.Instance"><em>AtlasServiceInstance.Instance</em></a>) – instance</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><code class="xref py py-exc docutils literal"><span class="pre">ErrStorageMongoConnection</span></code> – Error during MongoDB communication.</li>
+<li><code class="xref py py-exc docutils literal"><span class="pre">ErrStorageFindInstance</span></code> – Not able to find the instance on the DB !</li>
+<li><code class="xref py py-exc docutils literal"><span class="pre">ErrStorageRemoveInstance</span></code> – Failed to remove the instance.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="atlasbroker.storage.AtlasBrokerStorage.store">
+<code class="descname">store</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.storage.AtlasBrokerStorage.store" title="Permalink to this definition">¶</a></dt>
+<dd><p>Store</p>
+<p>Store an object into the MongoDB storage for caching</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>obj</strong> (<a class="reference internal" href="#atlasbroker.servicebinding.AtlasServiceBinding.Binding" title="atlasbroker.servicebinding.AtlasServiceBinding.Binding"><em>AtlasServiceBinding.Binding</em></a><em> or </em><a class="reference internal" href="#atlasbroker.serviceinstance.AtlasServiceInstance.Instance" title="atlasbroker.serviceinstance.AtlasServiceInstance.Instance"><em>AtlasServiceInstance.Instance</em></a>) – instance or binding</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">MongoDB _id</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">ObjectId</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><code class="xref py py-exc docutils literal"><span class="pre">ErrStorageMongoConnection</span></code> – Error during MongoDB communication.</li>
+<li><code class="xref py py-exc docutils literal"><span class="pre">ErrStorageTypeUnsupported</span></code> – Type unsupported.</li>
+<li><code class="xref py py-exc docutils literal"><span class="pre">ErrStorageStore</span></code> – Failed to store the binding or instance.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-atlasbroker">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-atlasbroker" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to atlasbroker’s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="atlasbroker.apis.html"
+                        title="next chapter">atlasbroker.apis package</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="atlasbroker.apis.html" title="atlasbroker.apis package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to atlasbroker’s documentation!"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">atlasbroker 1.0.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Yellow Pages Inc.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
+    </div>
+  </body>
+</html>
