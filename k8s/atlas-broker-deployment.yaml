@@ -1,0 +1,30 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: atlas-broker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      project: atlas-broker
+  template:
+    metadata:
+      labels:
+        project: atlas-broker
+        app: atlas-broker
+    spec:
+      containers:
+      - env:
+        image: atlas-broker:1
+        imagePullPolicy: Always
+        name: atlas-broker
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      serviceAccount: default
+      serviceAccountName: default
+      terminationGracePeriodSeconds: 10

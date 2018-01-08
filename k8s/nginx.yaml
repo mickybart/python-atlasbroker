@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Pod
+metadata:
+ name: nginx
+ namespace: test-atlas-broker
+ labels:
+   app: web
+spec:
+ containers:
+   - name: nginx
+     image: nginx
+     env:
+      - name: ATLAS_USERNAME
+        valueFrom:
+          secretKeyRef:
+            name: atlas-broker-binding 
+            key: username
+      - name: ATLAS_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: atlas-broker-binding
+            key: password
+      - name: ATLAS_DATABASE
+        valueFrom:
+          secretKeyRef:
+            name: atlas-broker-binding
+            key: database
+      - name: ATLAS_URI
+        valueFrom:
+          secretKeyRef:
+            name: atlas-broker-binding
+            key: uri
+     envFrom:
+       - secretRef:
+           name: atlas-broker-binding
+     volumeMounts:
+       - name: atlas
+         mountPath: "/var/run/secrets/selfservice/atlas"
+         readOnly: true
+ volumes:
+   - name: atlas
+     secret:
+       secretName: atlas-broker-binding
+       defaultMode: 256

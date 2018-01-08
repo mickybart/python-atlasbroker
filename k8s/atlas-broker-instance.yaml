@@ -1,0 +1,11 @@
+apiVersion: servicecatalog.k8s.io/v1beta1
+kind: ServiceInstance
+metadata:
+  name: atlas-broker-instance
+  namespace: test-atlas-broker
+spec:
+  clusterServiceClassExternalName: atlas-mongodb-cluster
+  clusterServicePlanExternalName: atlas-mongodb-existing-cluster
+  parameters:
+    cluster: cluster-dev
+    ns: test-atlas-broker

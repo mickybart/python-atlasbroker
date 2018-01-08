@@ -1,0 +1,8 @@
+apiVersion: servicecatalog.k8s.io/v1beta1
+kind: ServiceBinding
+metadata:
+  name: atlas-broker-binding
+  namespace: test-atlas-broker
+spec:
+  instanceRef:
+    name: atlas-broker-instance

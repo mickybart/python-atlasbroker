@@ -1,0 +1,6 @@
+apiVersion: servicecatalog.k8s.io/v1beta1
+kind: ClusterServiceBroker
+metadata:
+  name: atlas-broker
+spec:
+        url: http://atlas-broker.atlas-broker.svc.cluster.local
