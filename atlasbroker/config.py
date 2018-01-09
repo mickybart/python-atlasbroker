@@ -50,7 +50,6 @@ class Config:
     # Common keys used by the broker
     # (parameters on the k8s instance yaml definition)
     PARAMETER_DATABASE="database"
-    PARAMETER_NAMESPACE="ns"
     PARAMETER_CLUSTER="cluster"
     
     # UUID
@@ -117,32 +116,31 @@ class Config:
         except FileNotFoundError:
             return None
     
-    def generate_instance_dbname(self, parameters):
+    def generate_instance_dbname(self, instance):
         """Generate a Database name
         
-        There is a lot of discussion about static name vs UUID.
-        Atlas Broker will handle instance UUID but it will need to use a static name
-        and will NOT expose the instance UUID in this function.
+        This function permit to define the database name for this instance.
         
-        The reason is that the name should be defined with parameters only to permit some projects
-        in different k8s namespaces to bind to the same database instance.
-        It is not possible for now to bind to an instance defined on another namespace and 
-        we need a way to use the same database despite different instances UUID.
+        IMPORTANT: Multiple calls of this function with the same instance should return the same database name.
         
-        So Atlas Broker will be able to manage multiple instance UUID set to a unique database with a static name.
+        The UUID is a good way to set it but if you need to share a database accross multiple namespaces,
+        you need to return a static name independant of the UUID.
+        It is not possible in the current broker api to bind to an instance from another namespace. So each namespace need
+        its own instance object despite that we want to share a database.
         
-        The generated database name will be set on the parameters[PARAMETER_DATABASE] by the broker. This is the internal
-        static name for the broker.
+        Atlas Broker is able to manage muliple instance UUID set to a unique database with a static name.
         
-        NOTE: if the parameters[PARAMETER_DATABASE] already exists, this function will never be called by the broker.
+        You have 2 way to do it:
+        - You can create each instance with the same parameters and to generate a static name based on those parameters only.
+        - You can set a static name directly on instance parameters with the key value of Config.PARAMETER_DATABASE. If this key exists, this function will never be called.
         
         Args:
-            parameters (dict): Parameters of the k8s Service Instance yaml definition.
+            instance (AtlasServiceInstance.Instance): An instance
             
         Returns:
             str: The database name
         """
-        return parameters[self.PARAMETER_NAMESPACE]
+        return 'instance-' + instance.instance_id
     
     def generate_binding_credentials(self, binding):
         """Generate binding credentials
@@ -187,6 +185,8 @@ class Config:
         """Generate binding username
         
         We don't need anything static here. The UUID is a good way to create a username.
+        
+        IMPORTANT: Multiple calls of this function with the same binding should return the same username.
         
         Args:
             binding (AtlasServiceBinding.Binding): A binding

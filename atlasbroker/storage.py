@@ -123,48 +123,25 @@ class AtlasBrokerStorage:
             ErrStorageStore : Failed to store the binding or instance.
         """
         
-        # insert
-        #  by default we will insert a new document but we can support a specific case with an update (see instance)
-        insert = True
-        
         # query
         if type(obj) is AtlasServiceInstance.Instance:
-            # try to find a similar instance to support identical instance usage in different namespaces
-            # => for now this is not supported to bind to an instance on another namespace so this is more a workaround.
-            try:
-                result = self.broker.find_one({ "parameters" : obj.parameters })
-            except:
-                raise ErrStorageMongoConnection("Find an existing instance")
-            
-            if result is not None:
-                update_for = { "_id" : result["_id"] }
-                update_query = { "$push" : { "instance_id" : obj.instance_id}}
-                insert = False
-            else:
-                query = { "instance_id" : [obj.instance_id], "parameters" : obj.parameters }
-                
+            query = { "instance_id" : obj.instance_id, "database" : obj.get_dbname(), "cluster": obj.get_cluster(), "parameters" : obj.parameters }
         elif type(obj) is AtlasServiceBinding.Binding:
             query = { "binding_id" : obj.binding_id, "parameters" : obj.parameters, "instance_id": obj.instance.instance_id }
         else:
             raise ErrStorageTypeUnsupported(type(obj))
         
-        # insert / update
+        # insert
         try:
-            if insert:
-                result = self.broker.insert_one(query)
-            else:
-                result = self.broker.update_one(update_for, update_query)
+            result = self.broker.insert_one(query)
         except:
             raise ErrStorageMongoConnection("Store Instance or Binding")
         
-        if insert and result is not None:
+        if result is not None:
             # Flags the obj to provisioned
             obj.provisioned = True
             return result.inserted_id
-        elif not insert and result is not None and result.modified_count == 1:
-            obj.provisioned = True
-            return update_for["_id"]
-
+        
         raise ErrStorageStore()
     
     def remove(self, obj):
@@ -195,31 +172,20 @@ class AtlasBrokerStorage:
         
         Raises:
             ErrStorageMongoConnection: Error during MongoDB communication.
-            ErrStorageFindInstance: Not able to find the instance on the DB !
             ErrStorageRemoveInstance: Failed to remove the instance.
         """
         
-        # find _id
-        try:
-            result = self.broker.find_one({ "instance_id" : instance.instance_id, "binding_id" : { "$exists" : False } })
-        except:
-            raise ErrStorageMongoConnection("Remove Instance (find)")
+        # query
+        query = { "instance_id" : instance.instance_id, "binding_id" : { "$exists" : False } }
         
-        # update query
-        if result is not None:
-            update_for = { "_id" : result["_id"] }
-            update_query = { "$pull" : { "instance_id" : instance.instance_id}}
-        else:
-            raise ErrStorageFindInstance(instance.instance_id)
-        
-        # update
+        # delete the instance
         try:
-            result = self.broker.update_one(update_for, update_query)
+            result = self.broker.delete_one(query)
         except:
-            raise ErrStorageMongoConnection("Remove Instance (update)")
+            raise ErrStorageMongoConnection("Remove Instance")
         
         # return the result
-        if result is not None and result.modified_count == 1:
+        if result is not None and result.deleted_count == 1:
             instance.provisioned = False
         else:
             raise ErrStorageRemoveInstance(instance.instance_id)

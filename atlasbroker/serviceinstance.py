@@ -63,19 +63,14 @@ class AtlasServiceInstance():
             ErrClusterNotFound: Cluster does not exist
         """
         
-        # Review parameters to add the database name if needed.
-        # For now the database is set with the name of the namespace that is mandatory
-        if not parameters.get(self.backend.config.PARAMETER_DATABASE):
-            parameters[self.backend.config.PARAMETER_DATABASE] = self.backend.config.generate_instance_dbname(parameters)
-        
         if not instance.isProvisioned():
-            # Provisionning
+            # Set parameters
             instance.parameters = parameters
             
             # Existing cluster
-            if existing and not self.backend.atlas.Clusters.is_existing_cluster(parameters[self.backend.config.PARAMETER_CLUSTER]):
+            if existing and not self.backend.atlas.Clusters.is_existing_cluster(instance.parameters[self.backend.config.PARAMETER_CLUSTER]):
                 # We need to use an existing cluster that is not available !
-                raise ErrClusterNotFound(self.backend.config.PARAMETER_CLUSTER)
+                raise ErrClusterNotFound(instance.parameters[self.backend.config.PARAMETER_CLUSTER])
             elif not existing:
                 # We need to create a new cluster
                 # We should not reach this code because the AtlasBroker.provision should
@@ -109,10 +104,15 @@ class AtlasServiceInstance():
             DeprovisionServiceSpec: Status
         """
         
-        self.backend.storage.remove(instance)
+        #TODO: Really drop the database based on a policy set in `instance.parameters`.
+        #
+        #      We need :
+        #      - Set a policy in parameters of the instance (eg: policy-on-delete : retain|drop    => default to retain)
+        #      - to check that the database name `instance.get_dbname()` is not in use by another instance (shared database)
+        #      - credential on the Atlas cluster `instance.get_cluster()` to drop the database
+        #
         
-        #TODO: Really drop the database based on a policy set in instance parameters if nobody else is using it
-        #      policy-on-delete : retain|drop
+        self.backend.storage.remove(instance)
         
         return DeprovisionServiceSpec(False, "done")
     
@@ -151,8 +151,12 @@ class AtlasServiceInstance():
             Returns:
                 str: The database name
             """
-            return self.parameters[self.backend.config.PARAMETER_DATABASE]
-        
+            static_name = self.parameters.get(self.backend.config.PARAMETER_DATABASE, None)
+            if static_name:
+                return static_name
+            
+            return self.backend.config.generate_instance_dbname(self)
+
         def get_cluster(self):
             """Get the Atlas cluster
             
