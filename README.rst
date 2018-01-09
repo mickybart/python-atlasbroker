@@ -82,8 +82,13 @@ Please read the Code documentation for more details.
     secrets = Config.load_json("secret.json")
     
     class CustomConfig(Config):
+        PARAMETER_NAMESPACE="ns"
+        
         def generate_binding_username(self, binding):
-            return 'user-' + binding.binding_id
+            return binding.binding_id + '-rw'
+
+        def generate_instance_dbname(self, instance):
+            return instance.parameters[self.PARAMETER_NAMESPACE]
 
     config = CustomConfig(secrets["atlas"], secrets["mongo"])
     

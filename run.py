@@ -26,8 +26,13 @@ config = Config(secrets["atlas"], secrets["mongo"])
 # Custom config ?
 #
 # class CustomConfig(Config):
+#     PARAMETER_NAMESPACE="ns"
+#     
 #     def generate_binding_username(self, binding):
 #         return binding.binding_id + '-rw'
+#
+#     def generate_instance_dbname(self, instance):
+#         return instance.parameters[self.PARAMETER_NAMESPACE]
 #
 # config = CustomConfig(secrets["atlas"], secrets["mongo"])
 
