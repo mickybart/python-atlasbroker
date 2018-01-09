@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>atlasbroker package &#8212; atlasbroker 1.0.0 documentation</title>
+    <title>atlasbroker package &#8212; atlasbroker 1.1.0 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.0.0',
+        VERSION:     '1.1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -42,7 +42,7 @@
         <li class="right" >
           <a href="index.html" title="Welcome to atlasbroker’s documentation!"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">atlasbroker 1.0.0 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">atlasbroker 1.1.0 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -272,11 +272,6 @@ generate_binding_permissions</dd>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="atlasbroker.config.Config.PARAMETER_NAMESPACE">
-<code class="descname">PARAMETER_NAMESPACE</code><em class="property"> = 'ns'</em><a class="headerlink" href="#atlasbroker.config.Config.PARAMETER_NAMESPACE" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
 <dt id="atlasbroker.config.Config.UUID_PLANS_EXISTING_CLUSTER">
 <code class="descname">UUID_PLANS_EXISTING_CLUSTER</code><em class="property"> = '8db474d1-3cc0-4f4d-b864-24e3bd49b874'</em><a class="headerlink" href="#atlasbroker.config.Config.UUID_PLANS_EXISTING_CLUSTER" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -341,6 +336,7 @@ We can pass extra information into parameters of the binding if needed (see bind
 <code class="descname">generate_binding_username</code><span class="sig-paren">(</span><em>binding</em><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.config.Config.generate_binding_username" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate binding username</p>
 <p>We don’t need anything static here. The UUID is a good way to create a username.</p>
+<p>IMPORTANT: Multiple calls of this function with the same binding should return the same username.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -357,24 +353,23 @@ We can pass extra information into parameters of the binding if needed (see bind
 
 <dl class="method">
 <dt id="atlasbroker.config.Config.generate_instance_dbname">
-<code class="descname">generate_instance_dbname</code><span class="sig-paren">(</span><em>parameters</em><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.config.Config.generate_instance_dbname" title="Permalink to this definition">¶</a></dt>
+<code class="descname">generate_instance_dbname</code><span class="sig-paren">(</span><em>instance</em><span class="sig-paren">)</span><a class="headerlink" href="#atlasbroker.config.Config.generate_instance_dbname" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate a Database name</p>
-<p>There is a lot of discussion about static name vs UUID.
-Atlas Broker will handle instance UUID but it will need to use a static name
-and will NOT expose the instance UUID in this function.</p>
-<p>The reason is that the name should be defined with parameters only to permit some projects
-in different k8s namespaces to bind to the same database instance.
-It is not possible for now to bind to an instance defined on another namespace and
-we need a way to use the same database despite different instances UUID.</p>
-<p>So Atlas Broker will be able to manage multiple instance UUID set to a unique database with a static name.</p>
-<p>The generated database name will be set on the parameters[PARAMETER_DATABASE] by the broker. This is the internal
-static name for the broker.</p>
-<p>NOTE: if the parameters[PARAMETER_DATABASE] already exists, this function will never be called by the broker.</p>
+<p>This function permit to define the database name for this instance.</p>
+<p>IMPORTANT: Multiple calls of this function with the same instance should return the same database name.</p>
+<p>The UUID is a good way to set it but if you need to share a database accross multiple namespaces,
+you need to return a static name independant of the UUID.
+It is not possible in the current broker api to bind to an instance from another namespace. So each namespace need
+its own instance object despite that we want to share a database.</p>
+<p>Atlas Broker is able to manage muliple instance UUID set to a unique database with a static name.</p>
+<p>You have 2 way to do it:
+- You can create each instance with the same parameters and to generate a static name based on those parameters only.
+- You can set a static name directly on instance parameters with the key value of Config.PARAMETER_DATABASE. If this key exists, this function will never be called.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>parameters</strong> (<em>dict</em>) – Parameters of the k8s Service Instance yaml definition.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>instance</strong> (<a class="reference internal" href="#atlasbroker.serviceinstance.AtlasServiceInstance.Instance" title="atlasbroker.serviceinstance.AtlasServiceInstance.Instance"><em>AtlasServiceInstance.Instance</em></a>) – An instance</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The database name</td>
 </tr>
@@ -1037,7 +1032,6 @@ That reducing the number of call to Atlas APIs too.</p>
 </tr>
 <tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
 <li><code class="xref py py-exc docutils literal"><span class="pre">ErrStorageMongoConnection</span></code> – Error during MongoDB communication.</li>
-<li><code class="xref py py-exc docutils literal"><span class="pre">ErrStorageFindInstance</span></code> – Not able to find the instance on the DB !</li>
 <li><code class="xref py py-exc docutils literal"><span class="pre">ErrStorageRemoveInstance</span></code> – Failed to remove the instance.</li>
 </ul>
 </td>
@@ -1124,7 +1118,7 @@ That reducing the number of call to Atlas APIs too.</p>
         <li class="right" >
           <a href="index.html" title="Welcome to atlasbroker’s documentation!"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">atlasbroker 1.0.0 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">atlasbroker 1.1.0 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
