@@ -14,7 +14,7 @@ setup(
     license="Apache License 2.0",
     description="Kubernetes Broker for MongoDB Atlas Cloud provider",
     long_description=open('README.rst').read(),
-    url="https://github.com/mickybart/atlas-broker",
+    url="https://github.com/mickybart/python-atlasbroker",
     keywords=["atlas", "mongo", "mongodb", "cloud", "kubernetes", "broker"],
     classifiers=[
         # How mature is this project? Common values are
