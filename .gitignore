@@ -8,3 +8,4 @@ dist
 .eggs
 gendocs/_build/
 secret.json
+.kdev4/
