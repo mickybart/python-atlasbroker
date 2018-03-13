@@ -6,7 +6,7 @@ setup(
     version='1.1.2',
     python_requires='>=3.5',
     packages=find_packages(),
-    install_requires=['flask', 'openbrokerapi', 'pymongo', 'pwgen', 'atlasapi'],
+    install_requires=['flask', 'openbrokerapi==1.0.0', 'pymongo', 'pwgen', 'atlasapi'],
 
     # Metadata
     author="Yellow Pages Inc.",
