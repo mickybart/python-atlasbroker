@@ -26,7 +26,7 @@ class ErrClusterNotFound(Exception):
         cluster (str): Atlas cluster name
     """
     def __init__(self, cluster):
-        super().__init__("The cluster %s is not available on Atlas.", cluster)
+        super().__init__("The cluster %s is not available on Atlas." % cluster)
 
 class ErrClusterConfig(Exception):
     """Cluster configuration not found
@@ -39,7 +39,7 @@ class ErrClusterConfig(Exception):
         cluster (str): Atlas cluster name
     """
     def __init__(self, cluster):
-        super().__init__("The cluster configuration for %s is not available.", cluster)
+        super().__init__("The cluster configuration for %s is not available." % cluster)
 
 class ErrStorageMongoConnection(Exception):
     """The storage is not able to communicate with MongoDB
@@ -50,7 +50,7 @@ class ErrStorageMongoConnection(Exception):
         during (str): When the issue occurs
     """
     def __init__(self, during):
-        super().__init__("The storage is not able to communicate with MongoDB [%s]", during)
+        super().__init__("The storage is not able to communicate with MongoDB [%s]" % during)
 
 class ErrStorageTypeUnsupported(Exception):
     """Type unsupported
@@ -61,7 +61,7 @@ class ErrStorageTypeUnsupported(Exception):
         type_obj (type): Type of the object not supported (type(obj))
     """
     def __init__(self, type_obj):
-        super().__init__("Type [%s] unsupported", str(type_obj))
+        super().__init__("Type [%s] unsupported" % str(type_obj))
 
 class ErrStorageRemoveInstance(Exception):
     """Failed to remove the instance
@@ -72,7 +72,7 @@ class ErrStorageRemoveInstance(Exception):
         instance_id (str): UUID of the instance
     """
     def __init__(self, instance_id):
-        super().__init__("Failed to remove the instance %s", instance_id)
+        super().__init__("Failed to remove the instance %s" % instance_id)
 
 class ErrStorageRemoveBinding(Exception):
     """Failed to remove the binding
@@ -83,7 +83,7 @@ class ErrStorageRemoveBinding(Exception):
         binding_id (str): UUID of the binding
     """
     def __init__(self, binding_id):
-        super().__init__("Failed to remove the binding %s", binding_id)
+        super().__init__("Failed to remove the binding %s" % binding_id)
 
 class ErrStorageStore(Exception):
     """Failed to store the instance or binding"""
@@ -99,7 +99,7 @@ class ErrStorageFindInstance(Exception):
         instance_id (str): UUID of the instance
     """
     def __init__(self, instance_id):
-        super().__init__("Failed to find the instance %s.", instance_id)
+        super().__init__("Failed to find the instance %s." % instance_id)
 
 class ErrPlanUnsupported(Exception):
     """Plan not supported
@@ -110,4 +110,4 @@ class ErrPlanUnsupported(Exception):
         plan_id (str): UUID of the plan
     """
     def __init__(self, plan_id):
-        super().__init__("Plan [%s] not supported.", plan_id)
+        super().__init__("Plan [%s] not supported." % plan_id)
