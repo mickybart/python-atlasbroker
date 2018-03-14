@@ -163,7 +163,7 @@ class Config:
         uri = self.clusters.get(binding.instance.get_cluster(), None)
         
         if not uri:
-            raise ErrClusterConfig(cluster)
+            raise ErrClusterConfig(binding.instance.get_cluster())
         
         # partial credentials
         creds = {"username" : self.generate_binding_username(binding),
