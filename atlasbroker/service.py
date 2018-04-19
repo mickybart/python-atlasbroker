@@ -17,14 +17,32 @@
 Core of the Atlas broker
 """
 
-from openbrokerapi.service_broker import *
-from openbrokerapi.api import *
-from openbrokerapi.errors import ErrBindingDoesNotExist, ErrInstanceDoesNotExist
+from openbrokerapi.catalog import (
+    ServicePlan
+)
+from openbrokerapi.service_broker import (
+    ServiceBroker,
+    Service,
+    ProvisionedServiceSpec,
+    UpdateServiceSpec,
+    Binding,
+    DeprovisionServiceSpec,
+    LastOperation,
+    UnbindDetails,
+    ProvisionDetails,
+    UpdateDetails,
+    BindDetails,
+    DeprovisionDetails
+)
+from openbrokerapi.errors import (
+    ErrBindingDoesNotExist,
+    ErrInstanceDoesNotExist
+)
 
 from .backend import AtlasBrokerBackend
 from .errors import ErrPlanUnsupported
 
-class AtlasBroker(Service):
+class AtlasBroker(ServiceBroker):
     """Atlas Broker
     
     Implement a service broker by overriding methods of Service
@@ -35,21 +53,23 @@ class AtlasBroker(Service):
         config (config): Configuration of the broker
     """
     def __init__(self, config):
-        super().__init__(
-            id=config.broker["id"],
-            name=config.broker["name"],
-            description=config.broker["description"],
-            bindable=config.broker["bindable"],
-            plans=config.broker["plans"],
-            tags=config.broker["tags"],
-            requires=config.broker["requires"],
-            metadata=config.broker["metadata"],
-            dashboard_client=config.broker["dashboard_client"],
-            plan_updateable=config.broker["plan_updateable"],
-        )
-        
         # Create the AtlasBrokerBackend
         self._backend = AtlasBrokerBackend(config)
+        self._config = config
+
+    def catalog(self):
+        return Service(
+            id=self._config.broker["id"],
+            name=self._config.broker["name"],
+            description=self._config.broker["description"],
+            bindable=self._config.broker["bindable"],
+            plans=self._config.broker["plans"],
+            tags=self._config.broker["tags"],
+            requires=self._config.broker["requires"],
+            metadata=self._config.broker["metadata"],
+            dashboard_client=self._config.broker["dashboard_client"],
+            plan_updateable=self._config.broker["plan_updateable"],
+        )
 
     def provision(self, instance_id: str, service_details: ProvisionDetails, async_allowed: bool) -> ProvisionedServiceSpec:
         """Provision the new instance
