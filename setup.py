@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='atlasbroker',
-    version='1.1.3',
+    version='2.0.0',
     python_requires='>=3.5',
     packages=find_packages(),
     install_requires=['flask', 'openbrokerapi>=2.0.0', 'pymongo', 'pwgen', 'atlasapi'],
