@@ -90,8 +90,17 @@ class AtlasServiceBinding():
                            credentials = creds)
         
         elif binding.parameters == parameters:
-            # Identical so nothing to do
-            return Binding(BindState.IDENTICAL_ALREADY_EXISTS)
+            if self.backend.config.isGenerateBindingCredentialsPredictible():
+                # Identical and credentials generation is predictible so we can return credentials again.
+                creds = self.backend.config.generate_binding_credentials(binding)
+                
+                return Binding(BindState.IDENTICAL_ALREADY_EXISTS,
+                               credentials = creds)
+            
+            # Identical but credentials generation is NOT predictible. So we are breaking the spec to avoid
+            # wrong data injection. In this case we trigger a conflicting parameters for the existing binding depsite
+            # this is not the case.
+            raise ErrBindingAlreadyExists()
         
         else:
             # Different parameters ...

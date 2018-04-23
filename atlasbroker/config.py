@@ -181,6 +181,27 @@ class Config:
         # return creds
         return creds
     
+    def isGenerateBindingCredentialsPredictible(self):
+        """Is generate_binding_credentials predictible ?
+        
+        Permit to know if generate_binding_credentials call will generate same credentials
+        for every calls with the same binding parameter.
+        
+        During the binding, the first bind will send a 201 Created response with credentials in the paylod.
+        All other calls to bind with same parameters should return a 200 OK with credentials payload.
+        If a call to bind with different parameters is done, a 409 is returned without credentials payload.
+        
+        However, some brokers do not respect 201/200/409 and some broker like UPS one will just send 200 for everything.
+        
+        To better handle and/or workaround specs, we need to know if generate_binding_credentials
+        for an identical binding will return the same credentials.
+        That will permit the broker to decide if it can return credentials with 200 when it firstly created them with a 201
+        or to workaround the answer to avoid the service catalog to inject inaccurate credentials.
+        
+        In the best world, it should be good to be able to generate "static" credentials and set the return to True on this function.
+        """
+        return False
+    
     def generate_binding_username(self, binding):
         """Generate binding username
         
